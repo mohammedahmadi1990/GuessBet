@@ -23,19 +23,33 @@ checkButton.addEventListener('click', () => {
       document.querySelector('.highscore').textContent = score;
     }
   } else {
-    document.querySelector('.message').textContent = 'Guess again';
+    document.querySelector('.message').textContent = 'Guess again...';
     score--;
     document.querySelector('.score').textContent = score;
     document.querySelector('.number').style.backgroundColor = 'red';
+    document.querySelector('.number').textContent = guessed;
+    sleep(1000).then(() => {
+      document.querySelector('.number').style.backgroundColor = 'white';
+      document.querySelector('.number').textContent = '?';
+    });
   }
 });
 
 againButton.addEventListener('click', () => {
   myNumber = randNum();
-  console.log(myNumber);
+  document.querySelector('.number').style.backgroundColor = 'white';
+  document.querySelector('.message').textContent = 'Start guessing...';
+  document.querySelector('.number').textContent = '?';
+  score = 20;
+  document.querySelector('.score').textContent = score;
+  document.querySelector('.guess').value = '';
 });
 
 // Random number generator
 function randNum() {
   return Math.round(Math.random() * 20);
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
